@@ -1,0 +1,201 @@
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+:focus,
+:active {
+    outline: none;
+}
+
+a:focus,
+a:active {
+    outline: none;
+}
+
+nav,
+footer,
+header,
+aside {
+    display: block;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    line-height: 1;
+    font-size: 14px;
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+input,
+button,
+textarea {
+    font-family:inherit;
+}
+
+input::-ms-clear {
+    display: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+button::-moz-focus-inner {
+    padding:0;
+    border:0;
+}
+
+a,
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+ul li {
+    list-style: none;
+}
+
+img {
+    vertical-align: top;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-size:inherit;
+    font-weight: 400;
+}
+
+:root {
+    --header-height: 80px;
+}
+
+.container {
+    height: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.wrapper {
+    min-height: 100vh;
+    width: 100%;
+}
+
+/*== Header ==*/
+
+header {
+    height: var(--header-height);
+    width: 100%;
+}
+
+/*== Main ==*/
+
+main {
+    height: 100%;
+    min-height: calc(100vh - var(--header-height));
+    width: 100%;
+    padding: 20px 0 0 0;
+}
+
+/*== Auth Login Form ==*/
+
+form {
+    padding: 10px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: darkgoldenrod;
+    border-radius: 10px;
+    box-shadow: 0 0 8px 5px rgba(0, 0, 0, 0.2);
+}
+
+.login-form__fieldset {
+    text-align: center;
+}
+
+.login-form__legend {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.login-form__element {
+    padding: 10px;
+}
+
+.login-form__label {
+    font-size: 18px;
+}
+
+.login-form__input {
+    font-size: 18px;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.login-form__button {
+    font-size: 17px;
+    padding: 5px;
+    border-radius: 7px;
+    margin: 5px 0;
+}
+
+/*== Auth Register Form ==*/
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: darkgoldenrod;
+    border-radius: 10px;
+    box-shadow: 0 0 8px 5px rgba(0, 0, 0, 0.2);
+}
+
+.register-form__fieldset {
+    text-align: center;
+}
+
+.register-form__legend {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.register-form__element {
+    padding: 10px;
+}
+
+.register-form__label {
+    font-size: 18px;
+    margin: 0 10px 0 0;
+}
+
+.register-form__input {
+    font-size: 18px;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.register-form__button {
+    font-size: 17px;
+    padding: 5px;
+    border-radius: 7px;
+    margin: 5px 0;
+}

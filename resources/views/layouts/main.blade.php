@@ -12,13 +12,15 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 </head>
 <body>
-    <header>
-        @include('')
-    </header>
-    <main>
-        <div class="wrapper">
-            @yield('content')
-        </div>
-    </main>
+    <div class="wrapper">
+        <header >
+            @include('partials.header')
+        </header>
+        <main>
+            <div class="container">
+                @yield('content')
+            </div>
+        </main>
+    </div>
 </body>
 </html>
