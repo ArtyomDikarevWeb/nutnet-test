@@ -95,6 +95,24 @@ h1,h2,h3,h4,h5,h6 {
     width: 100%;
 }
 
+/*== Common styles*/
+
+.flex {
+    display: flex;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.align-center {
+    align-items: center;
+}
+
+.text-center {
+    text-align: center;
+}
+
 /*== Header ==*/
 
 header {
@@ -198,4 +216,134 @@ form {
     padding: 5px;
     border-radius: 7px;
     margin: 5px 0;
+}
+
+/*== Albums ==*/
+
+.albums {
+    display: flex;
+    flex-direction: column;
+}
+
+.album {
+    display: flex;
+    width: 600px;
+    margin: 20px auto;
+    height: 300px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.album__image-block {
+    width: 50%;
+    background-color: #4a5568;
+}
+
+.album__text-block {
+    width: 50%;
+    padding: 20px;
+}
+
+.album__link {
+    font-size: 16px;
+    color: #6d7b8e;
+}
+
+.album__link:hover {
+    color: #2d3748;
+    text-decoration: underline;
+}
+
+/*== Creation and edit form ==*/
+
+.container__creation-form,
+.container__edit-form {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.creation-form,
+.edit-form {
+    width: 400px;
+    height: 700px;
+    padding: 20px;
+}
+
+.creation-form__content,
+.edit-form__content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.creation-form__legend,
+.edit-form__legend {
+    font-size: 24px;
+    text-align: center;
+}
+
+.creation-form__item,
+.edit-form__item {
+    width: 100%;
+    height: auto;
+    margin: 15px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.creation-form__item:first-of-type,
+.edit-form__item:first-of-type {
+    width: 100%;
+    margin: 20px 0 15px 0;
+}
+
+.creation-form__label,
+.edit-form__label {
+    width: 100%;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.creation-form__input,
+.edit-form__input {
+    width: 100%;
+    outline: 2px solid #718096;
+    font-size: 16px;
+    padding: 5px;
+}
+
+.creation-form__input:focus,
+.edit-form__input:focus {
+    outline-color: darkseagreen;
+}
+
+.creation-form__textarea,
+.edit-form__textarea {
+    width: 100%;
+    outline: 2px solid #718096;
+    font-size: 15px;
+    padding: 5px;
+}
+
+.creation-form__textarea:focus,
+.edit-form__textarea:focus {
+    outline-color: darkseagreen;
+}
+
+.creation-form__button,
+.edit-form__button {
+    width: 50%;
+    padding: 5px;
+    font-size: 16px;
+    background-color: rgba(113, 128, 150, 0.8);
+    color: white;
+}
+
+.creation-form__button:hover,
+.edit-form__button:hover {
+    background-color: rgba(113, 128, 150, 1);
 }

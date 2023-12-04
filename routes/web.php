@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AlbumController;
 
 Route::get('/login',  [AuthController::class, 'showLoginForm'])->name('auth.login.form');
 Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
@@ -11,5 +12,5 @@ Route::post('/register',  [AuthController::class, 'register'])->name('auth.regis
 Route::group([], function () {
     Route::get('/logout',  [AuthController::class, 'logout'])->name('auth.logout');
 
-
+    Route::resource('/albums', AlbumController::class);
 });

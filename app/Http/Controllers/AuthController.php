@@ -23,11 +23,7 @@ class AuthController extends Controller
     {
         $result = $action($request->dto());
 
-        if ($result) {
-            return response()->redirectToRoute('auth.login');
-        }
-
-        return response()->redirectToRoute('auth.login');
+        return $result ? response()->redirectToRoute('albums.index') : response()->redirectToRoute('auth.login.form');
     }
 
     public function showRegisterForm(): View
@@ -40,11 +36,7 @@ class AuthController extends Controller
     {
         $result = $action($request->dto());
 
-        if ($result) {
-            return response()->redirectToRoute('auth.login');
-        }
-
-        return response()->redirectToRoute('auth.login');
+        return $result ? response()->redirectToRoute('albums.index') : response()->redirectToRoute('auth.register.form');
     }
 
     public function logout(): RedirectResponse
