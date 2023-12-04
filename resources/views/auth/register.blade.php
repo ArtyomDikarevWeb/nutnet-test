@@ -2,8 +2,7 @@
 
 @section('content')
     <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
-        <form class="register-form" action="{{route('auth.register')}}">
-            @method('POST')
+        <form class="register-form" method="POST" action="{{route('auth.register')}}">
             @csrf
             <fieldset class="register-form__fieldset">
                 <legend class="register-form__legend">Регистрация</legend>

@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Auth\AuthLoginAction;
+use App\Actions\Auth\AuthRegisterAction;
+use App\Http\Requests\AuthRequest;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class AuthController extends Controller
@@ -11,9 +16,18 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    public function login()
+    /**
+     * @throws \Exception
+     */
+    public function login(AuthRequest $request, AuthLoginAction $action): RedirectResponse
     {
+        $result = $action($request->dto());
 
+        if ($result) {
+            return response()->redirectToRoute('auth.login');
+        }
+
+        return response()->redirectToRoute('auth.login');
     }
 
     public function showRegisterForm(): View
@@ -22,13 +36,21 @@ class AuthController extends Controller
     }
 
 
-    public function register()
+    public function register(AuthRequest $request, AuthRegisterAction $action): RedirectResponse
     {
+        $result = $action($request->dto());
 
+        if ($result) {
+            return response()->redirectToRoute('auth.login');
+        }
+
+        return response()->redirectToRoute('auth.login');
     }
 
-    public function logout()
+    public function logout(): RedirectResponse
     {
+        Auth::logout();
 
+        return response()->redirectToRoute('auth.login');
     }
 }
