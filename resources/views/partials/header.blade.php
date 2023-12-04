@@ -4,7 +4,9 @@
             <img src="#" alt="Logo">
         </div>
         <nav>
-
+            @auth
+                <ul>{{ auth()->user()->name }}</ul>
+            @endauth
         </nav>
     </div>
 </div>
