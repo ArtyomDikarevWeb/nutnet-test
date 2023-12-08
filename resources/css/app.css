@@ -81,6 +81,7 @@ h1,h2,h3,h4,h5,h6 {
 
 :root {
     --header-height: 80px;
+    --title-completer-offset: 0px;
 }
 
 .container {
@@ -93,6 +94,23 @@ h1,h2,h3,h4,h5,h6 {
 .wrapper {
     min-height: 100vh;
     width: 100%;
+}
+
+.inline-style {
+    flex-direction: row !important;
+    align-items: center;
+}
+
+.width-max-content {
+    width: max-content !important;
+}
+
+.margin-clear {
+    margin: 0 !important;
+}
+
+.display-none {
+    display: none !important;
 }
 
 /*== Common styles*/
@@ -257,7 +275,8 @@ form {
 /*== Creation and edit form ==*/
 
 .container__creation-form,
-.container__edit-form {
+.container__edit-form,
+.container__show-album{
     width: 100%;
     height: 100%;
     display: flex;
@@ -314,11 +333,33 @@ form {
     outline: 2px solid #718096;
     font-size: 16px;
     padding: 5px;
+    z-index: 1;
 }
 
 .creation-form__input:focus,
 .edit-form__input:focus {
     outline-color: darkseagreen;
+}
+
+#title-completer {
+    width: 100%;
+    font-size: 18px;
+    margin-bottom: 10px;
+    position: relative;
+    height: 100%;
+}
+
+#title-completer::after {
+    content: attr(data-after);
+    position: absolute;
+    top: 33.5px;
+    left: var(--title-completer-offset);
+    bottom: 0px;
+    right: 0px;
+    z-index: 10;
+    color: grey;
+    padding: 0 5px;
+    font-size: 16px;
 }
 
 .creation-form__textarea,
@@ -346,4 +387,54 @@ form {
 .creation-form__button:hover,
 .edit-form__button:hover {
     background-color: rgba(113, 128, 150, 1);
+}
+
+.edit-form__image {
+    margin-top: 10px;
+}
+
+#use_autocompletion {
+    margin-left: 10px;
+}
+
+.form-error-message {
+    color: tomato;
+    font-size: 15px;
+    margin-top: 10px;
+}
+
+/*== Paginator ==*/
+
+.container__paginator {
+    width: 100%;
+    display: flex;
+    margin: 10px 0;
+}
+
+.paginator {
+    display: flex;
+    gap: 10px;
+    margin: 0 auto;
+}
+
+.paginator-item {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(71 85 105);
+}
+
+.paginator-item__page-number {
+    font-size: 18px;
+    color: rgb(236 254 255);
+}
+
+.paginator-item__page-number:hover {
+    color: rgb(34 211 238);
+}
+
+.paginator-item__page-number--active {
+    color: rgb(34 211 238);
 }

@@ -18,12 +18,12 @@ class AuthRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'email' => ['email', 'required', 'min:3', 'max:255'],
-            'password' => ['string', 'required', 'min:8', 'max:30'],
+            'email' => ['required', 'email', 'min:3', 'max:255'],
+            'password' => ['required', 'string', 'min:8', 'max:30'],
         ];
 
         if (request()->routeIs('auth.register')) {
-            $rules['name'] = ['string', 'max:30'];
+            $rules['name'] = ['required', 'string', 'max:30'];
         }
 
         return $rules;

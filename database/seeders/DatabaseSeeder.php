@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Album;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -14,6 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
          User::factory(10)->create();
+         Album::factory(10)->create();
 
          User::factory()->create([
              'name' => 'Test User',
