@@ -10,14 +10,14 @@
                     <label class="login-form__label" for="email">Email:</label>
                     <input class="login-form__input" type="email" name="email" id="email" placeholder="Email">
                     @error('email')
-                        <p>{{ $message }}</p>
+                        <p class="form-error-message">{{ $message }}</p>
                     @enderror
                 </div>
                 <div class="login-form__element">
                     <label class="login-form__label" for="password">Пароль:</label>
                     <input class="login-form__input" type="password" name="password" id="password" placeholder="Пароль">
                     @error('password')
-                        <p>{{ $message }}</p>
+                        <p class="form-error-message">{{ $message }}</p>
                     @enderror
                 </div>
                 <button class="login-form__button" type="submit">Войти</button>
@@ -27,9 +27,5 @@
                 </div>
             </fieldset>
         </form>
-
-        @auth
-            <p>Красава, залогинился</p>
-        @endauth
     </div>
 @endsection

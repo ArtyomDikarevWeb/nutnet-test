@@ -2,33 +2,34 @@
 
 @section('content')
     <div class="albums">
-        @for($i = 0; $i <= 10; $i++)
+        @forelse($albums as $album)
             <div class="album">
                 <div class="album__image-block">
-                    <img src="#" alt="Album image">
+                    <img src="{{  $album->cover_url }}" alt="Album image">
                 </div>
                 <div class="album__text-block">
                     <div>
                         <p>Название</p>
-                        <p>Альбом А</p>
+                        <p>{{ $album->title }}</p>
                     </div>
                     <div>
                         <p>Исполнитель</p>
-                        <p>Гучи Рэпер</p>
+                        <p>{{ $album->artist }}</p>
                     </div>
                     <div>
                         <div>
                             <p>Описание</p>
-                            <p>
-                                ASddasdasda ASddasdasda ASddasdasda ASddasdasda ASddasdasda ASddasdasda
-                                ASddasdasdaASddasdasdaASddasdasdaASddasdasdaASddasdasdaASddasdasdaASddasdasda
-                                ASddasdasda ASddasdasda ASddasdasda
-                            </p>
+                            <p>{{ $album->description }}</p>
                         </div>
-                        <a class="album__link" href="#">Перейти</a>
+                        <a class="album__link" href="{{route('albums.show', $album->id)}}">Перейти</a>
                     </div>
                 </div>
             </div>
-        @endfor
+        @empty
+            <div class="albums__empty">
+                <p>В данный момент альбомов в справочнике нет. Станьте первым кто создаст альбом ;)</p>
+            </div>
+        @endforelse
+            <x-pagination-component :paginator="$albums"/>
     </div>
 @endsection

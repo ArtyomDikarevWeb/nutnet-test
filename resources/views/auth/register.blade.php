@@ -9,14 +9,23 @@
                 <div class="register-form__element">
                     <label class="register-form__label" for="email">Email:</label>
                     <input class="register-form__input" type="email" name="email" id="email" placeholder="Email">
+                    @error('email')
+                        <p class="form-error-message">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div class="register-form__element">
                     <label class="register-form__label" for="name">Имя:</label>
                     <input class="register-form__input" type="text" name="name" id="name" placeholder="Имя">
+                    @error('name')
+                    <p class="form-error-message">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div class="register-form__element">
                     <label class="register-form__label" for="password">Пароль:</label>
                     <input class="register-form__input" type="password" name="password" id="password" placeholder="Пароль">
+                    @error('password')
+                    <p class="form-error-message">{{ $message }}</p>
+                    @enderror
                 </div>
                 <button class="register-form__button" type="submit">Зарегистрироваться</button>
                 <div class="register-form__element">
