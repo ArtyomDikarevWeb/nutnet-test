@@ -10,7 +10,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 
-class UpdateAlbumRequest extends FormRequest
+class AlbumRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,6 +27,7 @@ class UpdateAlbumRequest extends FormRequest
             'artist' => ['required', 'string', 'min:1', 'max:255'],
             'description' => ['required', 'string', 'min:1', 'max:10000'],
             'cover_url' => ['required', 'string', 'min:1', 'max:1000'],
+            'use_autocompletion' => ['required', 'boolean']
         ];
     }
 
@@ -37,7 +38,17 @@ class UpdateAlbumRequest extends FormRequest
             'artist' => __('messages.album.validation.artist'),
             'description' => __('messages.album.validation.description'),
             'cover_url' => __('messages.album.validation.cover_url'),
+            'use_autocompletion' => __('messages.album.validation.use_autocompletion')
         ];
+    }
+
+    public function failedValidation(Validator $validator)
+    {
+        $errors = $validator->errors();
+
+        throw new HttpResponseException(
+          response()->json(['errors' => $errors], JsonResponse::HTTP_UNPROCESSABLE_ENTITY)
+        );
     }
 
     public function dto(): AlbumData

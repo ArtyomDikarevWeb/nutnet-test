@@ -27,7 +27,7 @@ class StoreAlbumAction
         $album = Album::create([
             'artist' => $response['artist'],
             'title' => $response['name'],
-            'cover_url' => $response['image'][3],
+            'cover_url' => $response['image'][3]['#text'],
             'description' => $description
         ]);
 

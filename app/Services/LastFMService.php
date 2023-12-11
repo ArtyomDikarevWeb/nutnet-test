@@ -19,8 +19,8 @@ class LastFMService implements MusicLibraryInterface
         $response = Http::get("https://ws.audioscrobbler.com/2.0/?method=album.search&album={$albumTitle}&limit=1&api_key={$this->getApiKey()}&format=json");
         $album = $response->json();
 
-        if (mb_strtolower($albumTitle) !== mb_strtolower($album['results']['albummatches']['album'][0]['name'])) {
-            throw new MusicLibraryException(__('messages.music_library_service.errors.album_name_does_not_exist'));
+        if (empty($album['results']['albummatches']['album'])) {
+            throw new MusicLibraryException('messages.music_library_service.errors.album_name_does_not_exist');
         }
 
         return $album['results']['albummatches']['album'][0];
@@ -33,10 +33,6 @@ class LastFMService implements MusicLibraryInterface
     {
         $response = Http::get("https://ws.audioscrobbler.com/2.0/?method=artist.search&artist={$artist}&limit=1&api_key={$this->getApiKey()}&format=json");
         $artistResponse = $response->json();
-
-        if (mb_strtolower($artist) !== mb_strtolower($artistResponse['results']['artistmatches']['artist'][0]['name'])) {
-            throw new MusicLibraryException(__('messages.music_library_service.errors.artist_does_not_exist'));
-        }
 
         return $artistResponse['results']['artistmatches']['artist'][0];
     }
@@ -64,6 +60,14 @@ class LastFMService implements MusicLibraryInterface
     public function checkIfUserDataCorrect(AlbumData $data): array
     {
         $albumInfo = $this->getAlbumInfo(trim($data->title), trim($data->artist));
+
+        if (mb_strtolower($data->title) !== mb_strtolower($albumInfo['name'])) {
+            throw new MusicLibraryException(__('messages.music_library_service.errors.album_name_does_not_exist'));
+        }
+
+        if (mb_strtolower($data->artist) !== mb_strtolower($albumInfo['artist'])) {
+            throw new MusicLibraryException(__('messages.music_library_service.errors.artist_does_not_exist'));
+        }
 
         if (trim($albumInfo['image'][3]['#text']) !== trim($data->cover_url)) {
             throw new MusicLibraryException(__('messages.music_library_service.errors.cover_url_does_not_match'));

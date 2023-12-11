@@ -6,14 +6,18 @@ namespace App\Http\Controllers;
 
 use App\Actions\Album\StoreAlbumAction;
 use App\Actions\Album\UpdateAlbumAction;
-use App\Http\Requests\CreateAlbumRequest;
-use App\Http\Requests\UpdateAlbumRequest;
+use App\Http\Requests\AlbumRequest;
 use App\Models\Album;
+use App\Services\Interfaces\MusicLibraryInterface;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class AlbumController extends Controller
 {
+    public function __construct(readonly public MusicLibraryInterface $service)
+    {}
+
     public function index(): View
     {
         $albums = Album::query()->paginate(5);
@@ -28,16 +32,10 @@ class AlbumController extends Controller
 
     public function create(): View
     {
-        /*
-         * Вообще правильным решением было бы не передавать апи ключ, потому что это секретная вещь, а сделать
-         * в контроллере ещё несколько нужных нам медотов (searchAlbum(), getAlbumInfo()) и работать с ними асинхронно
-         * через контроллер, используя сервис LastFMService, но я об этом поздно подумал, когда заканчивал проект,
-         * а переделывать займёт время, поэтому решил остановиться на этом, определённо неудачном решении в прод разработке.
-         */
-        return view('album.create', ['last_fm_api_key' => env('LAST_FM_API_KEY')]);
+        return view('album.create');
     }
 
-    public function store(CreateAlbumRequest $request, StoreAlbumAction $action): JsonResponse
+    public function store(AlbumRequest $request, StoreAlbumAction $action): JsonResponse
     {
         $result = $action($request->dto());
 
@@ -54,10 +52,29 @@ class AlbumController extends Controller
         return view('album.edit', ['album' => $album]);
     }
 
-    public function update(Album $album, UpdateAlbumRequest $request, UpdateAlbumAction $action): View
+    public function update(Album $album, AlbumRequest $request, UpdateAlbumAction $action): JsonResponse
     {
-        $editedAlbum = $action($album, $request->dto());
+        $editedAlbum = $action($album, $request->dto(), Auth::user());
 
-        return view('album.edit', ['album' => $editedAlbum]);
+        return $editedAlbum
+            ? response()->json(['data' => [
+                'message' => 'success',
+                'redirect_to' => route('albums.show', $editedAlbum)]
+            ], 200)
+            : response()->json(['errors' => ['message' => 'Something went wrong try again']]);
+    }
+
+    public function searchAlbum(): JsonResponse
+    {
+        $album = $this->service->searchAlbum(request()->query('title'));
+
+        return response()->json(['data' => ['album' => $album]], 200);
+    }
+
+    public function getAlbumInfo(): JsonResponse
+    {
+        $albumInfo = $this->service->getAlbumInfo(request()->query('title'), request()->query('artist'));
+
+        return response()->json(['data' => ['albumInfo' => $albumInfo]], 200);
     }
 }
