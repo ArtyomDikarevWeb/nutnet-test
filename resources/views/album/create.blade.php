@@ -68,7 +68,8 @@
             const canvas = document.createElement("canvas");
             const context = canvas.getContext("2d");
             const useAutocompletionFlag = document.getElementById('use_autocompletion');
-            const apiKey = {!! json_encode($last_fm_api_key) !!};
+            const searchAlbumLink = {!! json_encode(route('albums.search-album')) !!};
+            const getAlbumInfoLink = {!! json_encode(route('albums.get-info')) !!};
 
             title.addEventListener('input', () => {
                 let titleValue = title.value;
@@ -109,22 +110,22 @@
                 }
             })
 
-            function setAutocompletionValues(albumName = '', responseArtist, description, responseCoverUrl) {
+            function setAutocompletionValues(albumName = '', responseArtist, description, responseCoverUrl = 'https://fakeimg.pl/300x300/a43ba2/000') {
                 title.value = albumName;
                 artist.value = responseArtist;
                 coverUrl.value = responseCoverUrl;
                 autocompleteDescription.innerHTML = description;
-                cover.src = responseCoverUrl === '' ? 'https://fakeimg.pl/300x300/a43ba2/000' : responseCoverUrl;
+                cover.src = responseCoverUrl;
             }
 
             function searchAlbum(titleValue, titleValueWidth) {
-                return fetch(`https://ws.audioscrobbler.com/2.0/?method=album.search&album=${titleValue}&limit=1&api_key=${apiKey}&format=json`)
+                return fetch(`${searchAlbumLink}?title=${titleValue}`)
                     .then((response) => {
                         return response.json();
                     })
                     .then(data => {
-                        let albumName = data.results.albummatches.album[0].name;
-                        let responseArtist = data.results.albummatches.album[0].artist;
+                        let albumName = data.data.album.name;
+                        let responseArtist = data.data.album.artist;
                         let completeText = albumName.slice(titleValue.length);
                         titleCompleter.style.setProperty('--title-completer-offset', `${titleValueWidth}px`);
                         titleCompleter.setAttribute('data-after', completeText)
@@ -136,15 +137,15 @@
             }
 
             function getAlbumInfo(title, artist) {
-                fetch(`https://ws.audioscrobbler.com/2.0/?method=album.getinfo&album=${title}&artist=${artist}&limit=1&api_key=${apiKey}&format=json`)
+                fetch(`${getAlbumInfoLink}?title=${title}&artist=${artist}`)
                     .then((response) => response.json())
                     .then(data => {
-                        if (title.toLowerCase() === data.album.name.toLowerCase()) {
+                        if (title.toLowerCase() === data.data.albumInfo.name.toLowerCase()) {
                             setAutocompletionValues(
-                                data.album.name,
-                                data.album.artist,
-                                data.album.wiki.summary.replace(/\s<([^>]+?)([^>]*?)>(.*?)<\/\1>/ig, ''),
-                                data.album.image[3]['#text'],
+                                data.data.albumInfo.name,
+                                data.data.albumInfo.artist,
+                                data.data.albumInfo.wiki.summary.replace(/\s<([^>]+?)([^>]*?)>(.*?)<\/\1>/ig, ''),
+                                data.data.albumInfo.image[3]['#text'],
                             );
                             cover.removeAttribute('hidden');
                         }

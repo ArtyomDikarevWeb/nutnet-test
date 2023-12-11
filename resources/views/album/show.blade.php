@@ -5,24 +5,22 @@
         <div class="show-album">
             <div class="show-album__content">
                 <h3 class="show-album__title">{{ $album->title }}</h3>
-                <div class="creation-form__item">
-                    <img src="#" alt="Обложка">
+                <div class="show-album__item flex justify-center">
+                    <div class="show-album__image-container">
+                        <img class="show-album__image" src="{{ $album->cover_url }}" alt="Обложка">
+                    </div>
+
                 </div>
-                <div class="creation-form__item">
-                    <label class="creation-form__label" for="artist">Исполнитель</label>
-                    <input class="creation-form__input" type="text" name="artist" id="artist" placeholder="Исполнитель">
+                <div class="show-album__item">
+                    <p class="show-album__subject">Исполнитель</p>
+                    <p class="show-album__data">{{ $album->artist }}</p>
                 </div>
-                <div class="creation-form__item">
-                    <label class="creation-form__label" for="description">Описание</label>
-                    <textarea
-                        class="creation-form__textarea"
-                        name="description"
-                        id="description"
-                        placeholder="Описание"
-                    ></textarea>
+                <div class="show-album__item">
+                    <p class="show-album__subject">Описание</p>
+                    <p class="show-album__data">{{ $album->description }}</p>
                 </div>
-                <div class="creation-form__item flex align-center">
-                    <button type="submit" class="creation-form__button">Создать</button>
+                <div class="show-album__item text-right">
+                    <a href="{{ route('albums.edit', $album->id) }}" class="show-album__button">Редактировать</a>
                 </div>
             </div>
         </div>

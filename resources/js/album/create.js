@@ -19,9 +19,9 @@ export default  function () {
         let description = '';
 
         if (useAutocompletionFlag.checked) {
-            description = autocompleteDescription.innerHTML;
+            description = autocompleteDescription.textContent;
         } else {
-            description = userDescription.textContent;
+            description = userDescription.value;
         }
 
         const data = {
@@ -66,11 +66,15 @@ export default  function () {
                 });
             }
 
-            return response;
-        })
-        .then((data) => {
-            if (data.data?.message === "success") {
-                window.location = data.data?.redirect_to;
+            if (response.ok) {
+                response = response.json();
+
+                response.then((data) => {
+                    if (data.data?.message === "success") {
+                        console.log(data.data);
+                        window.location = data.data?.redirect_to;
+                    }
+                });
             }
         })
     })
