@@ -43,6 +43,6 @@ class AuthController extends Controller
     {
         Auth::logout();
 
-        return response()->redirectToRoute('auth.login');
+        return response()->redirectToRoute('auth.login.form');
     }
 }
